@@ -3,6 +3,7 @@ import 'package:fancrick/Features/Auth/auth.dart';
 import 'package:fancrick/Features/Register/rergister.dart';
 import 'package:fancrick/Provider/userprovider.dart';
 import 'package:fancrick/User/userfront.dart';
+import 'package:fancrick/welcome.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -39,7 +40,7 @@ class _MainAppState extends State<MainApp> {
           ? Provider.of<UserProvider>(context).user.type == 'user'
               ? user_front()
               : AdminFront()
-          : register(),
+          : user_front(),
     );
   }
 }

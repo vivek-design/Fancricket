@@ -1,4 +1,6 @@
 
+import 'package:fancrick/Features/Login/login.dart';
+import 'package:fancrick/Features/Register/rergister.dart';
 import 'package:flutter/src/widgets/container.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:flutter/material.dart';
@@ -91,8 +93,9 @@ class _gettingstartedState extends State<gettingstarted> {
                 padding: const EdgeInsets.all(20),
                 child: InkWell(
                   onTap: () => {
-
-
+                          Navigator.of(context).push(MaterialPageRoute(builder: (context){
+                            return register();
+                          }))
                   },
                   child: Ink(
                     height: 50,
@@ -119,7 +122,9 @@ class _gettingstartedState extends State<gettingstarted> {
                   child: InkWell(
                     onTap: () =>
                         {
-                          
+                            Navigator.of(context).push(MaterialPageRoute(builder: (context){
+                            return login_page();
+                          }))
                         
                         
                         },

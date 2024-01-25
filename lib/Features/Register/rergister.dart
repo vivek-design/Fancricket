@@ -33,8 +33,7 @@ class _registerState extends State<register> {
   //   }
   // }
 
-  String Role = "Maid";
-  String Gender = "";
+
   late final TextEditingController _email;
   late final TextEditingController _password;
   late final TextEditingController name;
@@ -142,13 +141,7 @@ class _registerState extends State<register> {
                   decoration: BoxDecoration(
                     color: Colors.white,
                     borderRadius: BorderRadius.circular(10),
-                    // boxShadow: [
-                    //   BoxShadow(
-                    //       color: Color.fromRGBO(143, 148, 251, 1),
-                    //       blurRadius: 20.0,
-                    //       offset: Offset(0, 10))
-                    // ]
-                    // )
+                 
                   ),
                   child: Column(
                     mainAxisAlignment: MainAxisAlignment.start,
@@ -163,13 +156,7 @@ class _registerState extends State<register> {
                         child: Row(
                           children: [
                             SizedBox(width: 75),
-                            Text(
-                              "Registering as Maid",
-                              style: TextStyle(
-                                fontWeight: FontWeight.bold,
-                                fontSize: 17,
-                              ),
-                            ),
+                            
                           ],
                         ),
                       ),
@@ -185,7 +172,7 @@ class _registerState extends State<register> {
                             controller: name,
                             decoration: InputDecoration(
                                 border: InputBorder.none,
-                                hintText: "Name",
+                                hintText: "Username",
                                 hintStyle: TextStyle(color: Colors.grey[400])),
                             validator: (value) {
                               if (value != null) if (value.isEmpty) {
@@ -194,67 +181,13 @@ class _registerState extends State<register> {
                               return null;
                             }),
                       ),
+                    
+                     
                       SizedBox(
                         height: 20,
                       ),
-                      Container(
-                        padding: EdgeInsets.all(8.0),
-                        decoration: BoxDecoration(
-                            border: Border.all(),
-                            borderRadius: BorderRadius.circular(20)),
-                        child: TextFormField(
-                            controller: age,
-                            decoration: InputDecoration(
-                                border: InputBorder.none,
-                                hintText: "Age",
-                                hintStyle: TextStyle(color: Colors.grey[400])),
-                            validator: (value) {
-                              if (value != null) if (value.isEmpty) {
-                                return "Name can'not be empty ";
-                              } else if (value is! int) {
-                                return "Enter a valid age ";
-                              }
-                              return null;
-                            }),
-                      ),
-                      SizedBox(
-                        height: 20,
-                      ),
-                      Container(
-                        padding: EdgeInsets.all(8.0),
-                        decoration: BoxDecoration(
-                            border: Border.all(),
-                            borderRadius: BorderRadius.circular(20)),
-                        child: Row(
-                          children: [
-                            Text("Gender :"),
-                            Radio(
-                                value: 4,
-                                activeColor: anywhere,
-                                groupValue: selectedGen,
-                                onChanged: (vale) {
-                                  Gender = "Male";
-                                  setgenRadio(vale);
-                                }),
-                            Text("Male"),
-                            SizedBox(
-                              width: 30,
-                            ),
-                            Radio(
-                                value: 3,
-                                activeColor: anywhere,
-                                groupValue: selectedGen,
-                                onChanged: (vale) {
-                                  Gender = "Female";
-                                  setgenRadio(vale);
-                                }),
-                            Text("Female"),
-                          ],
-                        ),
-                      ),
-                      SizedBox(
-                        height: 20,
-                      ),
+                     
+                     
                       Container(
                         padding: EdgeInsets.all(8.0),
                         decoration: BoxDecoration(
@@ -322,23 +255,18 @@ class _registerState extends State<register> {
                 onTap: () {
                   //this process returns the future so withput the use of await keywoed it will return the instance of future
 
-                  if (Role == null) {
-                    displaytoast("Please select register role", context);
-                  } else if (!_email.text.contains('@')) {
+                 if (!_email.text.contains('@')) {
                     displaytoast("Enter a valid email", context);
                   } else if (_email == null) {
                     displaytoast("Email field is mandatory", context);
                   } else if (name == null) {
                     displaytoast("Enter name field", context);
-                  } else if (Gender == null) {
-                    displaytoast("Please select gender", context);
                   } else if (phone == null || phone.text.length != 10) {
                     displaytoast("Please enter valid phone number", context);
                   } else if (_password.text.length < 8 || _password == null) {
                     displaytoast("Please select register role", context);
-                  } else if (age.text == null) {
-                    displaytoast("Please enter valid age", context);
-                  } else {
+                  } 
+                  else {
                     // registeruser(context);
                   }
                 },
@@ -381,39 +309,5 @@ class _registerState extends State<register> {
     Fluttertoast.showToast(msg: s);
   }
 
-  // void registeruser(BuildContext context) async {
-  //   try {
-  //     displaytoast("Registering", context);
-
-  //     await Auth().createUserWithEmailAndPassword(
-  //         email: _email.text, password: _password.text);
-
-  //     final User = FirebaseAuth.instance.currentUser;
-  //     if (User != null) {
-
-  //       databaseRef.child(User.uid).set({
-  //         'role': Role,
-  //         'Name': name.text,
-  //         'Age': age.text,
-  //         'gender': Gender,
-  //         'Phone': phone.text,
-  //         'Email': _email.text,
-  //         'Password': _password.text,
-  //         'latitude': 0,
-  //         'longitude': 0,
-  //       }).onError((error, stackTrace) {
-  //         displaytoast(error.toString(), context);
-  //       });
-
-  //       Navigator.of(context).pushNamed(router.verify);
-  //     } else {
-  //       displaytoast("cannot register somthing went wrong", context);
-  //     }
-
-  //     // ignore: nullable_type_in_catch_clause
-  //   } on FirebaseAuthException catch (e) {
-  //     await showErrorDialog(context, e.toString());
-  //   }
-  // }
-  // }
+ 
 }
