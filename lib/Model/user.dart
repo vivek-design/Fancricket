@@ -9,6 +9,7 @@ class User {
   String password;
   String token;
   String type;
+  String phone;
 
   User({
     required this.id,
@@ -17,6 +18,7 @@ class User {
     required this.password,
     required this.token,
     required this.type,
+    required this.phone,
   });
 
   User copyWith({
@@ -26,6 +28,7 @@ class User {
     String? password,
     String? token,
     String? type,
+    String? phone,
   }) {
     return User(
       id: id ?? this.id,
@@ -34,6 +37,7 @@ class User {
       password: password ?? this.password,
       token: token ?? this.token,
       type: type ?? this.type,
+      phone: phone ?? this.phone,
     );
   }
 
@@ -45,6 +49,7 @@ class User {
       'password': password,
       'token': token,
       'type': type,
+      'phone': phone,
     };
   }
 
@@ -56,6 +61,7 @@ class User {
       password: map['password'] as String,
       token: map['token'] as String,
       type: map['type'] as String,
+      phone: map['phone'] as String,
     );
   }
 
@@ -66,7 +72,7 @@ class User {
 
   @override
   String toString() {
-    return 'User(id: $id, name: $name, email: $email, password: $password, token: $token, type: $type)';
+    return 'User(id: $id, name: $name, email: $email, password: $password, token: $token, type: $type, phone: $phone)';
   }
 
   @override
@@ -79,7 +85,8 @@ class User {
       other.email == email &&
       other.password == password &&
       other.token == token &&
-      other.type == type;
+      other.type == type &&
+      other.phone == phone;
   }
 
   @override
@@ -89,6 +96,7 @@ class User {
       email.hashCode ^
       password.hashCode ^
       token.hashCode ^
-      type.hashCode;
+      type.hashCode ^
+      phone.hashCode;
   }
 }

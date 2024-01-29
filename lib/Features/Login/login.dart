@@ -1,4 +1,4 @@
-
+import 'package:fancrick/Features/Auth/auth.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 
@@ -42,6 +42,7 @@ class _login_pageState extends State<login_page> {
 
   @override
   Widget build(BuildContext context) {
+    AuthService auth = new AuthService();
     return Scaffold(
       backgroundColor: Colors.white,
       body: SingleChildScrollView(
@@ -173,65 +174,26 @@ class _login_pageState extends State<login_page> {
                       //   on hitting the login button if there is no such user than the firebase  throw an exception so to interact with this
                       //problem then we will use exception handling
 
-                      // try {
-                      //   if (_email.text.length == 0) {
-                      //     displaytoast("Email field can't be empty", context);
-                      //     setState(() {});
-                      //   }
-                      //   if (_password.text.length == 0) {
-                      //     displaytoast(
-                      //         "password field can't be empty", context);
-                      //     setState(() {});
-                      //   }
-
-                      
-                      //   await Auth().signInWithEmailAndPassword(
-                      //       email: _email.text, password: _password.text);
-
-                      //   final user = Auth().currentUser;
-                      //   if (user?.emailVerified ?? false) {
-                      //       DatabaseReference databaseRefu = FirebaseDatabase.instance.ref('User');
-                             
-                      //      databaseRefu.child(user!.uid).once().then((Event){
-                      //       final dataSnapshot = Event.snapshot.exists;
-                      //       if(dataSnapshot){
-                      //              displaytoast("loggin in ", context);
-                      //     Navigator.of(context).pushNamedAndRemoveUntil(
-                      //         router.center, (route) => false);
-                                
-                                     
-                      //       }else{
-                      //             displaytoast("loggin in ", context);
-                      //     Navigator.of(context).pushNamedAndRemoveUntil(
-                      //         router.maid, (route) => false); 
-                              
-                      //       }
-                         
-                      //      });
-                        
-                      //   } else {
-                      //     Navigator.of(context).pushNamedAndRemoveUntil(
-                      //         router.verify, (route) => false);
-                      //     // log(usercredential.toString());
-                      //   }
-                      // } on FirebaseAuthException catch (e) {
-                      //   // await showErrorDialog(context, e.toString());
-
-                      //   if (e.code == 'user-not-found') {
-                      //     showErrorDialog(context, "    User not found");
-                      //     setState(() {});
-                      //   } else if (e.code == 'wrong-password') {
-                      //     showErrorDialog(context, "   Wrong Password");
-                      //     setState(() {});
-                      //   } else if (e.code == 'invalid-email') {
-
-                      //     showErrorDialog(context, "   Invalid Email");
-                      //     setState(() {});
-                      //   } else {
-                      //     showErrorDialog(context, e.toString());
-                      //     setState(() {});
-                      //   }
-                      // }
+                      try {
+                        if (_email.text.length == 0 ||
+                            !_email.text.contains('@')) {
+                          displaytoast("Email is inappropriate", context);
+                          setState(() {});
+                        } else if (_password.text.length == 0 ||
+                            _password.text.length < 8) {
+                          displaytoast(
+                              "password should be of 8 charecters", context);
+                          setState(() {});
+                        } else {
+                          
+                          auth.signInUser(
+                              context: context,
+                              email: _email.text.toString(),
+                              password: _password.text.toString());
+                        }
+                      } catch (e) {
+                        displaytoast(e.toString(), context);
+                      }
                     },
                     child: Ink(
                       height: 50,
@@ -251,19 +213,6 @@ class _login_pageState extends State<login_page> {
                   ),
                   SizedBox(
                     height: 30,
-                  ),
-                  Container(
-                    child: Center(
-                      child: InkWell(
-                        onTap: () async {
-                        
-                        },
-                        child: Text("Forgot password?",
-                            style: TextStyle(
-                              color: Color.fromRGBO(143, 148, 251, 1),
-                            )),
-                      ),
-                    ),
                   ),
                 ],
               ),

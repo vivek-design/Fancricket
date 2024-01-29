@@ -10,6 +10,7 @@ class UserProvider extends ChangeNotifier {
     password: '',
     token: '',
     type: '',
+    phone: '',
    
   );
 
@@ -20,6 +21,9 @@ class UserProvider extends ChangeNotifier {
 
     notifyListeners();
   }
+
+
+  
 
   void setUserFromModel(User user) {
     _user = user;

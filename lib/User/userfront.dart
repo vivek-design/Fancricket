@@ -1,4 +1,5 @@
 import 'package:fancrick/Utilities/constants.dart';
+import 'package:fancrick/Utilities/drawer.dart';
 import 'package:fancrick/Utilities/matchtile.dart';
 import 'package:flutter/material.dart';
 
@@ -85,12 +86,12 @@ class _user_frontState extends State<user_front> {
           title: Text("Fantasy Cricket "),
           backgroundColor: anywhere,
           toolbarHeight: 80,
-          leading:   IconButton( //menu icon button at start left of appbar
-      onPressed: (){
-           //code to execute when this button is pressed
-      },
-      icon: Icon(Icons.menu),
-        ),
+      //     leading:   IconButton( //menu icon button at start left of appbar
+      // onPressed: (){
+      //      //code to execute when this button is pressed
+      // },
+      // icon: Icon(Icons.menu),
+      //   ),
     
         ),
     
@@ -121,7 +122,7 @@ class _user_frontState extends State<user_front> {
 
     
         
-          drawer: Drawer(),
+          drawer: myDrawer(),
       ),
     );
   }

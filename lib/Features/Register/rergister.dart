@@ -1,3 +1,5 @@
+import 'package:fancrick/Features/Register/verifyotp.dart';
+import 'package:fancrick/Model/user.dart';
 import 'package:fancrick/Utilities/constants.dart';
 import 'package:flutter/src/widgets/container.dart';
 import 'package:flutter/src/widgets/framework.dart';
@@ -6,6 +8,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
 import 'package:fluttertoast/fluttertoast.dart';
+import 'package:image_picker/image_picker.dart';
 
 class register extends StatefulWidget {
   const register({super.key});
@@ -19,20 +22,7 @@ class _registerState extends State<register> {
   var selectedRadio;
   var selectedGen;
 
-  // Future pickImage() async {
-  //   try {
-  //     final image = await ImagePicker().pickImage(source: ImageSource.gallery);
-  //     if (image == null) {
-  //       return;
-  //     }
-
-  //     final imageTemporary = File(image.path);
-  //     this.image = imageTemporary;
-  //   } on PlatformException catch (e) {
-  //     print('failed to pick image $e');
-  //   }
-  // }
-
+ 
 
   late final TextEditingController _email;
   late final TextEditingController _password;
@@ -141,7 +131,6 @@ class _registerState extends State<register> {
                   decoration: BoxDecoration(
                     color: Colors.white,
                     borderRadius: BorderRadius.circular(10),
-                 
                   ),
                   child: Column(
                     mainAxisAlignment: MainAxisAlignment.start,
@@ -156,7 +145,6 @@ class _registerState extends State<register> {
                         child: Row(
                           children: [
                             SizedBox(width: 75),
-                            
                           ],
                         ),
                       ),
@@ -181,13 +169,9 @@ class _registerState extends State<register> {
                               return null;
                             }),
                       ),
-                    
-                     
                       SizedBox(
                         height: 20,
                       ),
-                     
-                     
                       Container(
                         padding: EdgeInsets.all(8.0),
                         decoration: BoxDecoration(
@@ -255,19 +239,31 @@ class _registerState extends State<register> {
                 onTap: () {
                   //this process returns the future so withput the use of await keywoed it will return the instance of future
 
-                 if (!_email.text.contains('@')) {
+                  if (!_email.text.contains('@')) {
                     displaytoast("Enter a valid email", context);
                   } else if (_email == null) {
                     displaytoast("Email field is mandatory", context);
-                  } else if (name == null) {
+                  } else if (name.text == null) {
                     displaytoast("Enter name field", context);
                   } else if (phone == null || phone.text.length != 10) {
                     displaytoast("Please enter valid phone number", context);
                   } else if (_password.text.length < 8 || _password == null) {
                     displaytoast("Please select register role", context);
-                  } 
-                  else {
-                    // registeruser(context);
+                  } else {
+                    User user = new User(
+                        id: "",
+                        name: name.text,
+                        email: _email.text,
+                        password: _password.text,
+                        phone:phone.text ,
+                        token: "",
+                        type: "user");
+
+                    Navigator.pop(context);
+                    Navigator.of(context)
+                        .push(MaterialPageRoute(builder: (context) {
+                      return Verify(user: user);
+                    }));
                   }
                 },
                 child: Ink(
@@ -308,6 +304,4 @@ class _registerState extends State<register> {
   displaytoast(String s, BuildContext context) {
     Fluttertoast.showToast(msg: s);
   }
-
- 
 }
