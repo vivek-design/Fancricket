@@ -1,32 +1,38 @@
-import 'package:fancrick/Admin/runmatch.dart';
+import 'package:fancrick/Utilities/constants.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
-class matchtile2 extends StatefulWidget {
-  const matchtile2({super.key});
+class runmatch extends StatefulWidget {
+  const runmatch({super.key});
 
   @override
-  State<matchtile2> createState() => _matchtile2State();
+  State<runmatch> createState() => _runmatchState();
 }
 
-class _matchtile2State extends State<matchtile2> {
+class _runmatchState extends State<runmatch> {
   @override
   Widget build(BuildContext context) {
-    return Container(
-      padding: EdgeInsets.all(20),
-      child: Container(
-        height: 160,
-        decoration: BoxDecoration(
-          borderRadius: BorderRadius.circular(20),
-          color: Color.fromARGB(255, 209, 96, 75),
-        ),
-        child: Column(
+    return Scaffold(
+        body: Stack(
+
+          children:[ 
+            
+            Container(
+              height: 500,
+              width: 1000,
+               decoration: BoxDecoration(
+                color:anywhere, 
+                
+               ),
+               child:  Column(
           children: [
             SizedBox(
-              height: 10,
+              height: 60,
             ),
             Row(mainAxisAlignment: MainAxisAlignment.spaceEvenly, children: [
               Column(
                 children: [
+                 
                   CircleAvatar(
                     radius: 35,
                     backgroundImage: NetworkImage(
@@ -66,33 +72,20 @@ class _matchtile2State extends State<matchtile2> {
             SizedBox(
               height: 10,
             ),
-            InkWell(
-              onTap: () {
-                Navigator.of(context)
-                    .push(MaterialPageRoute(builder: (context) {
-                  return runmatch();
-                }));
-              },
-              child: Container(
-                child: Container(
-                  height: 30,
-                  width: 90,
-                  decoration: BoxDecoration(
-                    border: Border.all(),
-                    borderRadius: BorderRadius.circular(10),
-                    color: Color.fromARGB(255, 64, 164, 69),
-                  ),
-                  child: Center(
-                      child: Text(
-                    ("Start "),
-                    style: TextStyle(fontWeight: FontWeight.bold),
-                  )),
-                ),
-              ),
-            )
+           
+
           ],
         ),
-      ),
+          ),
+
+              Container(
+                     child:  Column(),
+              ),
+
+          FloatingActionButton(onPressed: (){}, child: Text("End"),backgroundColor:anywhere ,)
+
+          ]
+        ),
     );
   }
 }

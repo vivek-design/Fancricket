@@ -19,7 +19,7 @@ class _schedulematchState extends State<schedulematch> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text(" Schedule Match"),
+        title: Text(" Create contest"),
         backgroundColor: anywhere,
         toolbarHeight: 100,
       ),

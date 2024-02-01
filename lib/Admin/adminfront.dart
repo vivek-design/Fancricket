@@ -1,13 +1,12 @@
-import 'dart:ui';
-
 import 'package:fancrick/Admin/Edittem.dart';
 import 'package:fancrick/Admin/Scedulematch.dart';
-import 'package:fancrick/Features/Register/rergister.dart';
+import 'package:fancrick/Features/AdminFeature/adminfeatues.dart';
+import 'package:fancrick/Model/contest.dart';
 import 'package:fancrick/Utilities/constants.dart';
 import 'package:fancrick/Utilities/drawer.dart';
-import 'package:fancrick/Utilities/matchtile.dart';
+
 import 'package:fancrick/Utilities/matchtileStart.dart';
-import 'package:flutter/cupertino.dart';
+
 import 'package:flutter/material.dart';
 
 class AdminFront extends StatefulWidget {
@@ -18,6 +17,7 @@ class AdminFront extends StatefulWidget {
 }
 
 class _AdminFrontState extends State<AdminFront> {
+  adminservice admin = adminservice();
   int _index = 0;
   @override
   Widget build(BuildContext context) {
@@ -51,7 +51,26 @@ class _AdminFrontState extends State<AdminFront> {
           SizedBox(
             height: 20,
           ),
-          matchtile2()
+          FutureBuilder(
+              future: admin.getcontest(context),
+              builder: (context, snapshot) {
+                if (snapshot.hasData) {
+                  List<contests>? inhere = snapshot.data;
+                  return Expanded(
+                    child: ListView.builder(
+                        itemCount: inhere?.length,
+                        itemBuilder: (BuildContext context, int index) {
+                          return matchtile2();
+                        }),
+                  );
+                } else {
+                  return Container(
+                    child: Center(
+                      child: CircularProgressIndicator(),
+                    ),
+                  );
+                }
+              }),
         ],
       )),
       bottomNavigationBar: BottomNavigationBar(
@@ -59,22 +78,20 @@ class _AdminFrontState extends State<AdminFront> {
         selectedItemColor: anywhere,
         currentIndex: _index,
         onTap: (index) {
-       switch (index) {
-          case 0:
-           break;
-      case 1:
-          Navigator.of(context).push(MaterialPageRoute(builder: (context) {
-        return schedulematch();
-      }));
-        break;
-      case 2:
-          Navigator.of(context).push(MaterialPageRoute(builder: (context) {
-        return editeam();
-      }));
-        break;
-        
-        }
-
+          switch (index) {
+            case 0:
+              break;
+            case 1:
+              Navigator.of(context).push(MaterialPageRoute(builder: (context) {
+                return schedulematch();
+              }));
+              break;
+            case 2:
+              Navigator.of(context).push(MaterialPageRoute(builder: (context) {
+                return editeam();
+              }));
+              break;
+          }
         },
         items: [
           BottomNavigationBarItem(

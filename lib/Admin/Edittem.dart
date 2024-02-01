@@ -135,25 +135,25 @@ class _editeamState extends State<editeam> {
                   SizedBox(
                     width: 20,
                   ),
-                  InkWell(
-                    onTap: () {
-                      setState(() {
-                        _index = 2;
-                        selected_tab = 2;
-                      });
-                    },
-                    child: Container(
-                      height: 40,
-                      width: 150,
-                      decoration: BoxDecoration(
-                          border: Border.all(),
-                          borderRadius: BorderRadius.circular(40),
-                          color: selected_tab == 2
-                              ? Color.fromARGB(66, 144, 6, 6)
-                              : Colors.transparent),
-                      child: Center(child: Text('Edit team ')),
-                    ),
-                  ),
+                  // InkWell(
+                  //   onTap: () {
+                  //     setState(() {
+                  //       _index = 2;
+                  //       selected_tab = 2;
+                  //     });
+                  //   },
+                  //   child: Container(
+                  //     height: 40,
+                  //     width: 150,
+                  //     decoration: BoxDecoration(
+                  //         border: Border.all(),
+                  //         borderRadius: BorderRadius.circular(40),
+                  //         color: selected_tab == 2
+                  //             ? Color.fromARGB(66, 144, 6, 6)
+                  //             : Colors.transparent),
+                  //     child: Center(child: Text('Edit team ')),
+                  //   ),
+                  // ),
                 ]),
               ),
               SizedBox(

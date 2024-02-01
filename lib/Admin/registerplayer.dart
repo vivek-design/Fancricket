@@ -18,7 +18,7 @@ class _registerplayerState extends State<registerplayer> {
   String selected_team = 'Select team';
   bool isbuffer = false;
   List<String> role = ['Wicket keeper', "Batsman", "Bowler", "Allrounder"];
-  String? selected_role = 'Wicket keeper';
+  String selected_role = 'Wicket keeper';
   late final TextEditingController _playename;
 
   adminservice admin = adminservice();
@@ -129,7 +129,7 @@ class _registerplayerState extends State<registerplayer> {
                             value: selected_role,
                             onChanged: (newValue) {
                               setState(() {
-                                selected_role = newValue;
+                                selected_role = newValue!;
                               });
                             },
                             items: role.map((String item) {
@@ -154,7 +154,11 @@ class _registerplayerState extends State<registerplayer> {
                               } else if (_playename.text.length == 0) {
                                 showsnackBar(context, 'Enter player name');
                               } else {
-                                
+                                admin.registerplayer(
+                                    context: context,
+                                    team: selected_team,
+                                    name: _playename.text.toString(),
+                                    role: selected_role);
                                 setState(() {
                                   isbuffer = true;
                                 });
