@@ -33,21 +33,7 @@ class _AdminFrontState extends State<AdminFront> {
           SizedBox(
             height: 20,
           ),
-          Center(
-            child: Container(
-              height: 50,
-              width: 180,
-              decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(40),
-                border: Border.all(),
-              ),
-              child: Center(
-                  child: Text(
-                "Admin Pannel",
-                style: TextStyle(fontWeight: FontWeight.bold),
-              )),
-            ),
-          ),
+         
           SizedBox(
             height: 20,
           ),
@@ -56,11 +42,12 @@ class _AdminFrontState extends State<AdminFront> {
               builder: (context, snapshot) {
                 if (snapshot.hasData) {
                   List<contests>? inhere = snapshot.data;
+                  print(inhere?.length);
                   return Expanded(
                     child: ListView.builder(
                         itemCount: inhere?.length,
                         itemBuilder: (BuildContext context, int index) {
-                          return matchtile2();
+                          return matchtile2(cont:inhere![index]);
                         }),
                   );
                 } else {

@@ -152,8 +152,6 @@ class adminservice {
     return temp;
   }
 
-  
-
   Future<List<contests>> getcontest(BuildContext context) async {
     List<contests> ret = [];
     try {
@@ -178,6 +176,8 @@ class adminservice {
               String rightteamlogo =
                   con['teamRightData']['logo']['url'].toString();
               String righttem = con['teamRightData']['name'].toString();
+              String status = con['status'].toString();
+            
               contests cont = contests(
                 contestid: _id,
                 logo1: leftteamlogo,
@@ -185,12 +185,11 @@ class adminservice {
                 logo2: rightteamlogo,
                 team_name2: rightteam,
                 contest_name: _name,
+                status: "",
               );
 
               ret.add(cont);
             });
-
-            
           });
     } catch (e) {
       showsnackBar(context, e.toString());

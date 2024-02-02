@@ -1,8 +1,15 @@
-import 'package:fancrick/Admin/runmatch.dart';
+// ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'package:flutter/material.dart';
 
+import 'package:fancrick/Admin/runmatch.dart';
+import 'package:fancrick/Model/contest.dart';
+
 class matchtile2 extends StatefulWidget {
-  const matchtile2({super.key});
+  contests cont;
+matchtile2({
+    Key? key,
+    required this.cont,
+  }) : super(key: key);
 
   @override
   State<matchtile2> createState() => _matchtile2State();
@@ -17,7 +24,7 @@ class _matchtile2State extends State<matchtile2> {
         height: 160,
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(20),
-          color: Color.fromARGB(255, 209, 96, 75),
+          color: Color.fromARGB(255, 129, 152, 210),
         ),
         child: Column(
           children: [
@@ -30,14 +37,14 @@ class _matchtile2State extends State<matchtile2> {
                   CircleAvatar(
                     radius: 35,
                     backgroundImage: NetworkImage(
-                      'https://m.economictimes.com/thumb/msid-59202287,width-1200,height-900,resizemode-4,imgsize-66221/why-team-india-still-uses-british-era-logo-central-information-commission-to-pmo.jpg',
+                      widget.cont.logo1
                     ),
                   ),
                   SizedBox(
                     height: 10,
                   ),
                   Text(
-                    "India",
+                    widget.cont.team_name1,
                     style: TextStyle(fontWeight: FontWeight.bold),
                   ),
                 ],
@@ -51,13 +58,14 @@ class _matchtile2State extends State<matchtile2> {
                   CircleAvatar(
                     radius: 35,
                     backgroundImage: NetworkImage(
-                        'https://ih1.redbubble.net/image.4329544907.4168/st,medium,507x507-pad,600x600,f8f8f8.jpg'),
+                      widget.cont.logo2,
+                  ),
                   ),
                   SizedBox(
                     height: 10,
                   ),
                   Text(
-                    "England ",
+                    widget.cont.team_name2,
                     style: TextStyle(fontWeight: FontWeight.bold),
                   ),
                 ],
@@ -70,7 +78,7 @@ class _matchtile2State extends State<matchtile2> {
               onTap: () {
                 Navigator.of(context)
                     .push(MaterialPageRoute(builder: (context) {
-                  return runmatch();
+                  return runmatch(cont: widget.cont,);
                 }));
               },
               child: Container(
@@ -80,7 +88,7 @@ class _matchtile2State extends State<matchtile2> {
                   decoration: BoxDecoration(
                     border: Border.all(),
                     borderRadius: BorderRadius.circular(10),
-                    color: Color.fromARGB(255, 64, 164, 69),
+                    color: Color.fromARGB(255, 93, 165, 67),
                   ),
                   child: Center(
                       child: Text(

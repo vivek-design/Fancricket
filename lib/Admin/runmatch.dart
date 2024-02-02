@@ -1,9 +1,16 @@
-import 'package:fancrick/Utilities/constants.dart';
+// ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
+import 'package:fancrick/Model/contest.dart';
+import 'package:fancrick/Utilities/constants.dart';
+
 class runmatch extends StatefulWidget {
-  const runmatch({super.key});
+  contests cont;
+runmatch({
+    Key? key,
+    required this.cont,
+  }) : super(key: key);
 
   @override
   State<runmatch> createState() => _runmatchState();
@@ -13,37 +20,32 @@ class _runmatchState extends State<runmatch> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        body: Stack(
-
-          children:[ 
-            
-            Container(
-              height: 500,
-              width: 1000,
-               decoration: BoxDecoration(
-                color:anywhere, 
-                
-               ),
-               child:  Column(
-          children: [
-            SizedBox(
-              height: 60,
-            ),
-            Row(mainAxisAlignment: MainAxisAlignment.spaceEvenly, children: [
+      body: Stack(children: [
+        Container(
+          height: 500,
+          width: 1000,
+          decoration: BoxDecoration(
+            color: anywhere,
+          ),
+          child: Column(
+            children: [
+              SizedBox(
+                height: 60,
+              ),
+             Row(mainAxisAlignment: MainAxisAlignment.spaceEvenly, children: [
               Column(
                 children: [
-                 
                   CircleAvatar(
                     radius: 35,
                     backgroundImage: NetworkImage(
-                      'https://m.economictimes.com/thumb/msid-59202287,width-1200,height-900,resizemode-4,imgsize-66221/why-team-india-still-uses-british-era-logo-central-information-commission-to-pmo.jpg',
+                      widget.cont.logo1
                     ),
                   ),
                   SizedBox(
                     height: 10,
                   ),
                   Text(
-                    "India",
+                    widget.cont.team_name1,
                     style: TextStyle(fontWeight: FontWeight.bold),
                   ),
                 ],
@@ -57,35 +59,41 @@ class _runmatchState extends State<runmatch> {
                   CircleAvatar(
                     radius: 35,
                     backgroundImage: NetworkImage(
-                        'https://ih1.redbubble.net/image.4329544907.4168/st,medium,507x507-pad,600x600,f8f8f8.jpg'),
+                      widget.cont.logo2,
+                  ),
                   ),
                   SizedBox(
                     height: 10,
                   ),
                   Text(
-                    "England ",
+                    widget.cont.team_name2,
                     style: TextStyle(fontWeight: FontWeight.bold),
                   ),
                 ],
               ),
             ]),
-            SizedBox(
-              height: 10,
-            ),
-           
-
-          ],
-        ),
-          ),
-
-              Container(
-                     child:  Column(),
+              SizedBox(
+                height: 10,
               ),
-
-          FloatingActionButton(onPressed: (){}, child: Text("End"),backgroundColor:anywhere ,)
-
-          ]
+            ],
+          ),
         ),
+        Container(
+          child: Column(
+            
+          ),
+        ),
+       
+      ]),
+
+       floatingActionButton: FloatingActionButton(
+      
+        onPressed: () {},
+        child: Text("End"),
+        backgroundColor: anywhere,
+      ),
+        
+        floatingActionButtonLocation: FloatingActionButtonLocation.miniCenterFloat,
     );
   }
 }
