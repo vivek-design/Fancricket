@@ -105,7 +105,7 @@ class AuthService {
             showsnackBar(context, "logging in ");
             if (role == 'user') {
               Navigator.of(context).push(MaterialPageRoute(builder: (context) {
-                return AdminFront();
+                return user_front();
               }));
             } else {
               Navigator.of(context).push(MaterialPageRoute(builder: (context) {

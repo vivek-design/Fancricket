@@ -152,6 +152,8 @@ class adminservice {
     return temp;
   }
 
+
+
   Future<List<contests>> getcontest(BuildContext context) async {
     List<contests> ret = [];
     try {
@@ -169,15 +171,15 @@ class adminservice {
             await Future.forEach(contest, (con) async {
               String _name = con['name'].toString();
               String _id = con['_id'].toString();
-              String leftteam = con['teamLeftData']['name'].toString();
-              String rightteam = con['teamRightData']['name'].toString();
+              String leftteam = con['teamLeft']['name'].toString();
+              String rightteam = con['teamRight']['name'].toString();
               String leftteamlogo =
-                  con['teamLeftData']['logo']['url'].toString();
+                  con['teamLeft']['logo']['url'].toString();
               String rightteamlogo =
-                  con['teamRightData']['logo']['url'].toString();
-              String righttem = con['teamRightData']['name'].toString();
+                  con['teamRight']['logo']['url'].toString();
+              String righttem = con['teamRight']['name'].toString();
               String status = con['status'].toString();
-            
+             
               contests cont = contests(
                 contestid: _id,
                 logo1: leftteamlogo,
@@ -185,7 +187,7 @@ class adminservice {
                 logo2: rightteamlogo,
                 team_name2: rightteam,
                 contest_name: _name,
-                status: "",
+                status: status,
               );
 
               ret.add(cont);

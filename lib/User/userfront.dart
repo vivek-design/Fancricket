@@ -1,9 +1,13 @@
 import 'package:fancrick/Features/AdminFeature/adminfeatues.dart';
 import 'package:fancrick/Model/contest.dart';
+import 'package:fancrick/User/Profile.dart';
+import 'package:fancrick/User/history.dart';
 import 'package:fancrick/Utilities/constants.dart';
 import 'package:fancrick/Utilities/drawer.dart';
-import 'package:fancrick/Utilities/matchtile.dart';
-import 'package:fancrick/Utilities/matchtileStart.dart';
+
+
+import 'package:fancrick/Utilities/matchtileaftercompetion.dart';
+import 'package:fancrick/Utilities/matchtileforuser.dart';
 import 'package:flutter/material.dart';
 
 class user_front extends StatefulWidget {
@@ -15,6 +19,8 @@ class user_front extends StatefulWidget {
 
 class _user_frontState extends State<user_front> {
   adminservice admin = adminservice();
+  int _index = 0;
+  int index2 = 0;
   @override
   Widget build(BuildContext context) {
     return DefaultTabController(
@@ -25,7 +31,9 @@ class _user_frontState extends State<user_front> {
             indicatorColor: anywhere,
             tabAlignment: TabAlignment.fill,
             onTap: (index) {
-              print("selected tab is $index");
+              setState(() {
+                index2 = index;
+              });
             },
             tabs: [
               Tab(
@@ -57,7 +65,7 @@ class _user_frontState extends State<user_front> {
                       SizedBox(
                         width: 2,
                       ),
-                      Text("Upcomming")
+                      Text("Upcoming")
                     ],
                   ),
                 ),
@@ -86,7 +94,6 @@ class _user_frontState extends State<user_front> {
           title: Text("Fantasy Cricket "),
           backgroundColor: anywhere,
           toolbarHeight: 80,
-          
         ),
         body: Container(
           child: Column(
@@ -97,11 +104,25 @@ class _user_frontState extends State<user_front> {
                   builder: (context, snapshot) {
                     if (snapshot.hasData) {
                       List<contests>? inhere = snapshot.data;
-                      print(inhere?.length);
+                      print(inhere!.length);
                       return ListView.builder(
                         itemCount: inhere?.length,
                         itemBuilder: (BuildContext context, int index) {
-                          return matchtile2(cont: inhere![index]);
+                          print(inhere[index].status);
+                          if (index2 == 1 &&
+                              inhere![index].status == 'Upcoming') {
+                            return match_tile_user(cont: inhere[index]);
+                          }
+
+                          if (index2 == 0 && inhere![index].status == 'Live') {
+                            return matchdone(cont: inhere[index]);
+                          }
+
+                          if (index2 == 2 &&
+                              inhere![index].status == "Completed") {
+                            return matchdone(cont: inhere[index]);
+                          }
+                           return Container();
                         },
                       );
                     } else {
@@ -120,6 +141,27 @@ class _user_frontState extends State<user_front> {
         bottomNavigationBar: BottomNavigationBar(
           elevation: 10,
           selectedItemColor: anywhere,
+          currentIndex: _index,
+          onTap: (index) {
+            switch (index) {
+              case 0:
+                break;
+              case 1:
+                Navigator.pop(context);
+                Navigator.of(context)
+                    .push(MaterialPageRoute(builder: (context) {
+                  return history();
+                }));
+                break;
+              case 2:
+                Navigator.pop(context);
+                Navigator.of(context)
+                    .push(MaterialPageRoute(builder: (context) {
+                  return profile();
+                }));
+                break;
+            }
+          },
           items: [
             BottomNavigationBarItem(
               icon: Icon(Icons.home),
