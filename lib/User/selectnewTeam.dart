@@ -2,6 +2,8 @@
 import 'package:fancrick/Model/contestplayersboth.dart';
 import 'package:fancrick/Model/player.dart';
 import 'package:fancrick/User/Services/userservices.dart';
+import 'package:fancrick/Utilities/snackbar.dart';
+import 'package:fancrick/Utilities/tile.dart';
 import 'package:flutter/material.dart';
 
 import 'package:fancrick/Model/contest.dart';
@@ -20,6 +22,7 @@ class build_team extends StatefulWidget {
 
 class _build_teamState extends State<build_team> {
   userservices service = userservices();
+  List<String> selectedPlayers = [];
 
   @override
   Widget build(BuildContext context) {
@@ -56,16 +59,14 @@ class _build_teamState extends State<build_team> {
                                 ),
                                 Text(
                                   widget.cont.team_name1,
-                                  style: TextStyle(
-                                      fontWeight: FontWeight.bold),
+                                  style: TextStyle(fontWeight: FontWeight.bold),
                                 ),
                               ],
                             ),
                             Container(
                                 height: 80,
                                 width: 80,
-                                child: Image.asset(
-                                    'assets/images/vs.png')),
+                                child: Image.asset('assets/images/vs.png')),
                             Column(
                               children: [
                                 CircleAvatar(
@@ -78,8 +79,7 @@ class _build_teamState extends State<build_team> {
                                 ),
                                 Text(
                                   widget.cont.team_name2,
-                                  style: TextStyle(
-                                      fontWeight: FontWeight.bold),
+                                  style: TextStyle(fontWeight: FontWeight.bold),
                                 ),
                               ],
                             ),
@@ -93,17 +93,13 @@ class _build_teamState extends State<build_team> {
                   ),
                 ],
               ),
-        
-        
               FutureBuilder(
-                future: service.getcontestById(
-                    widget.cont.contestid, context),
+                future: service.getcontestById(widget.cont.contestid, context),
                 builder: (context, snapshot) {
                   if (snapshot.hasData) {
                     contestbothplayer? cont = snapshot.data;
                     List<player> l1 = cont!.list_1;
                     List<player> l2 = cont.list_2;
-        
                     return Column(
                       children: [
                         Container(
@@ -117,8 +113,8 @@ class _build_teamState extends State<build_team> {
                               SizedBox(width: 20),
                               Container(
                                 child: CircleAvatar(
-                                    backgroundImage: NetworkImage(
-                                        widget.cont.logo1)),
+                                    backgroundImage:
+                                        NetworkImage(widget.cont.logo1)),
                               ),
                             ],
                           ),
@@ -126,43 +122,17 @@ class _build_teamState extends State<build_team> {
                         Padding(
                           padding: EdgeInsets.only(left: 14),
                           child: ListView.builder(
-                            shrinkWrap: true,  
+                            shrinkWrap: true,
                             itemCount: l2.length,
-                            itemBuilder:
-                                (BuildContext context, int index) {
-                              return Container(
-                                padding: EdgeInsets.all(10),
-                                child: Container(
-                                    padding: EdgeInsets.all(10),
-                                    height: 80,
-                                    decoration: BoxDecoration(
-                                      borderRadius:
-                                          BorderRadius.circular(
-                                              10), // Adjust the value to change the roundness of the corners
-                                      border: Border.all(
-                                        color: Colors.grey,
-                                        width: 1,
-                                      ),
-                                    ),
-                                    child: Row(
-                                      mainAxisAlignment:
-                                          MainAxisAlignment
-                                              .spaceBetween,
-                                      children: [
-                                        Column(
-                                          children: [
-                                            Text(l2[index].name),
-                                            Text(l2[index].role),
-                                          ],
-                                        ),
-                                        CircleAvatar(
-                                          radius: 5,
-                                          backgroundColor:
-                                              Colors.grey,
-                                        ),
-                                      ],
-                                    )),
+                            physics: NeverScrollableScrollPhysics(),
+                            itemBuilder: (BuildContext context, int index) {
+                              final isSelected =
+                                  selectedPlayers.contains(l1[index].id);
+                                       return simpletile(name: l1[index].name, role: l1[index].role, isSelected: selectedPlayers.contains(l1[index].id), onTap: (){
+                                          
+                                    }
                               );
+                              
                             },
                           ),
                         ),
@@ -173,15 +143,14 @@ class _build_teamState extends State<build_team> {
                               children: [
                                 SizedBox(width: 20),
                                 Container(
-                                  child: Text(
-                                      widget.cont.team_name2,
+                                  child: Text(widget.cont.team_name2,
                                       overflow: TextOverflow.ellipsis),
                                 ),
                                 SizedBox(width: 20),
                                 Container(
                                   child: CircleAvatar(
-                                      backgroundImage: NetworkImage(
-                                          widget.cont.logo2)),
+                                      backgroundImage:
+                                          NetworkImage(widget.cont.logo2)),
                                 ),
                               ],
                             ),
@@ -192,67 +161,86 @@ class _build_teamState extends State<build_team> {
                           child: ListView.builder(
                             shrinkWrap: true,
                             itemCount: l2.length,
-                            itemBuilder:
-                                (BuildContext context, int index) {
-                              return Container(
-                                padding: EdgeInsets.all(10),
+                            physics: NeverScrollableScrollPhysics(),
+                            itemBuilder: (BuildContext context, int index) {
+                              var isSelected =
+                                  selectedPlayers.contains(l2[index].id);
+                            
+                              return InkWell(
+                                onTap: () {
+                                  setState(() {
+                                    if (isSelected) {
+                                      selectedPlayers.remove(l2[index].id);
+                                    } else {
+                                      selectedPlayers.add(l2[index].id);
+                                    }
+                                  });
+                                },
                                 child: Container(
-                                    padding: EdgeInsets.all(10),
-                                    height: 80,
-                                    decoration: BoxDecoration(
-                                      borderRadius:
-                                          BorderRadius.circular(
-                                              10), // Adjust the value to change the roundness of the corners
-                                      border: Border.all(
-                                        color: Colors.grey,
-                                        width: 1,
+                                  padding: EdgeInsets.all(10),
+                                  child: Container(
+                                      padding: EdgeInsets.all(10),
+                                      height: 80,
+                                      decoration: BoxDecoration(
+                                        borderRadius: BorderRadius.circular(
+                                            10), // Adjust the value to change the roundness of the corners
+                                        border: Border.all(
+                                          color: Colors.grey,
+                                          width: 1,
+                                        ),
                                       ),
-                                    ),
-                                    child: Row(
-                                      mainAxisAlignment:
-                                          MainAxisAlignment
-                                              .spaceBetween,
-                                      children: [
-                                        Column(
-                                          children: [
-                                            Text(l2[index].name),
-                                            Text(l2[index].role),
-                                          ],
-                                        ),
-                                        CircleAvatar(
-                                          radius: 5,
-                                          backgroundColor:
-                                              Colors.grey,
-                                        ),
-                                      ],
-                                    )),
+                                      child: Row(
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.spaceBetween,
+                                        children: [
+                                          Column(
+                                            children: [
+                                              Text(l2[index].name),
+                                              Text(l2[index].role),
+                                            ],
+                                          ),
+                                          CircleAvatar(
+                                            radius: 5,
+                                            backgroundColor: isSelected
+                                                ? Colors.blue
+                                                : Colors.grey,
+                                          ),
+                                        ],
+                                      )),
+                                ),
                               );
                             },
                           ),
                         ),
-        
-        
-        
-                         InkWell(
-                      onTap: () async {
-                        
-                      },
-                      child: Ink(
-                        height: 50,
-                        decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(10),
-                            gradient: LinearGradient(colors: [
-                              Color.fromRGBO(143, 148, 251, 1),
-                              Color.fromRGBO(143, 148, 251, 6),
-                            ])),
-                        child: Center(
-                          child: Text("Join Contest",
-                              style: TextStyle(
-                                color: Colors.white,
-                              )),
+                        InkWell(
+                          onTap: () async {
+                            // handle the 11 player exception case in here
+
+                            //
+                            if (selectedPlayers.length == 0) {
+                              showsnackBar(context, "select player ");
+                            } else {
+                              userservices userser = userservices();
+                              userser.selecteTeam(context, selectedPlayers,
+                                  widget.cont.contestid);
+                            }
+                          },
+                          child: Ink(
+                            height: 50,
+                            decoration: BoxDecoration(
+                                borderRadius: BorderRadius.circular(10),
+                                gradient: LinearGradient(colors: [
+                                  Color.fromRGBO(143, 148, 251, 1),
+                                  Color.fromRGBO(143, 148, 251, 6),
+                                ])),
+                            child: Center(
+                              child: Text("Join Contest",
+                                  style: TextStyle(
+                                    color: Colors.white,
+                                  )),
+                            ),
+                          ),
                         ),
-                      ),
-                    ),
                       ],
                     );
                   } else {
@@ -271,4 +259,3 @@ class _build_teamState extends State<build_team> {
     );
   }
 }
-

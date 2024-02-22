@@ -1,4 +1,5 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
+import 'package:fancrick/User/leaderboard.dart';
 import 'package:flutter/material.dart';
 
 import 'package:fancrick/Admin/runmatch.dart';
@@ -69,30 +70,24 @@ class _matchdoneState extends State<matchdone> {
                 ],
               ),
             ]),
-         
-
             Container(
-              child: Text(widget.cont.contest_name, style: TextStyle(
-                fontWeight: FontWeight.bold,
-
-              ),),
+              child: Text(
+                widget.cont.contest_name,
+                style: TextStyle(
+                  fontWeight: FontWeight.bold,
+                ),
+              ),
             ),
-
             SizedBox(
               height: 10,
             ),
-
-
             InkWell(
               onTap: () {
-                // push leaderboard screen with  constest id 
-
+                // push leaderboard screen with  constest id
 
                 Navigator.of(context)
                     .push(MaterialPageRoute(builder: (context) {
-                  return runmatch(
-                    cont: widget.cont,
-                  );
+                  return leaderboard(cont: widget.cont);
                 }));
               },
               child: Container(
