@@ -18,7 +18,6 @@ class AdminFront extends StatefulWidget {
   @override
   State<AdminFront> createState() => _AdminFrontState();
 }
-
 class _AdminFrontState extends State<AdminFront> {
   adminservice admin = adminservice();
   int _index = 0;
