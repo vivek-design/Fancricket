@@ -19,17 +19,17 @@ void main() {
     ChangeNotifierProvider(
       create: (context) => UserProvider(),
     )
-  ], child: const MainApp()));
+  ], child: const MyApp()));
 }
 
-class MainApp extends StatefulWidget {
-  const MainApp({super.key});
+class MyApp extends StatefulWidget {
+  const MyApp({super.key});
 
   @override
-  State<MainApp> createState() => _MainAppState();
+  State<MyApp> createState() => _MyAppState();
 }
 
-class _MainAppState extends State<MainApp> {
+class _MyAppState extends State<MyApp> {
   @override
   Widget build(BuildContext context) {
     print(Provider.of<UserProvider>(context).user.name.toString());
