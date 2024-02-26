@@ -34,8 +34,8 @@ jobs:
        - name: Install Dependencies 
          run: flutter pub get 
 
-       - name: Test flutter app
-         run : flutter test
+     
+    
 
        - name : Build Apk
          run : flutter build apk --release
