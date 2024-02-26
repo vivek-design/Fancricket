@@ -50,7 +50,7 @@ jobs:
  #that can be signed, distributed, and installed on
  #iOS devices.
        - name : Build IPA 
-         run : flutter build ipa --no-codedesign
+         run : flutter build ipa --no-codesign
        - name: Compress   Archieves and IPAs
          run: |
            cd build
