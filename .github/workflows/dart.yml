@@ -63,7 +63,7 @@ jobs:
           name: Releases
           path: |
             build/app/outputs/flutter-apk/app-release.apk
-            build/app/outpusts/bundle/release/app-release.abb
+            build/app/outputs/bundle/release/app-release.abb
             build/ios_build.tar.gz
 
        - name : Create Release
